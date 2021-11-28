@@ -32,8 +32,29 @@ class VehiculeController extends Controller {
     function Modify(){
         $V = new Vehicule();
         $vehicule=$V->find($_GET['id']);
+        $vehicule->SetCouleur($_POST["couleur"]);
+        $vehicule->SetModele($_POST["modele"]);
+        $vehicule->SetNbporte($_POST["nbporte"]);
         $vehicule->Save();
+        header('location:?route=listVehicule');
     }
+
+    function Create(){
+        $this->View("CreateVehicule");
+    }
+
+    function Add(){
+        $V = new Vehicule();
+        $V->SetCouleur($_POST["couleur"]);
+        $V->SetModele($_POST["modele"]);
+        $V->SetNbporte($_POST["nbporte"]);
+        $V->Save();
+        header('location:?route=listVehicule');
+    }
+
+
+
+
     /*function index() {
         include_once "View/header.php";
         include_once "View/Vehicule.php";

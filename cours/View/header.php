@@ -20,5 +20,23 @@
                 Creer Véhicule
             </a>
         </button>
+
+        <button>
+            <a href="?route=listMarque">
+                Liste Marque
+            </a>
+        </button>
+
+        <button>
+            <a href="?route=CreateMarque">
+                Creer Marque
+            </a>
+        </button>
+
+        <button>
+            <a href="?route=">
+                home
+            </a>
+        </button>
     </div>
 </div>

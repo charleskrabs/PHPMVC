@@ -10,8 +10,25 @@ abstract class Model implements nomage
         return $this->$attr;
     }
 
+    function SetCouleur($couleure){
+        $this->couleur = $couleure;
+    }
+
+    function SetModele($modelee){
+        $this->modele = $modelee;
+    }
+
+    function SetNbporte($nbportee){
+        $this->nbporte = $nbportee;
+    }
+
+    function Setnom($nom){
+        $this->nom = $nom;
+    }
+
     function connexion() {
-        return new PDO("mysql:host=Localhost; dbname=phpmvc","root","");
+        return new PDO('mysql:host=localhost;dbname=phpmvc;charset=utf8','root','root'); // connexion BDD sous MacOS
+        //return new PDO("mysql:host=Localhost; dbname=phpmvc","root",""); // connexion BDD sous windows
     }
 
     function all() {
@@ -50,14 +67,14 @@ abstract class Model implements nomage
         $db=$this->connexion();
         $pk = $this->id;
         if($pk == Null) {
-            $st = $db->prepare("insert into $table default VALUES returning id");
+            $st = $db->prepare("insert into $table values()");
             $st->execute();
-            $row = $st->fetch(PDD::FETCH_ASSOC);
-            $this->id = $row["id"];
+            $this->id=$db->lastInsertId();
         }
         foreach ($this->fields as $field) {
-            $st = $db->prepare("update $table set $field=Value WHERE id=:id");
-            $st->bindValue("Value", $this->$field);
+            $st = $db->prepare("update $table set $field=:Value WHERE id=:id");
+            $theField = $_POST[$field];
+            $st->bindValue("Value", $theField);
             $st->bindValue("id",$this->id);
             $st->execute();
         }
